@@ -1,5 +1,9 @@
-pipeline{
-    stage('Checkout'){
-        checkout scm
+pipeline {
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
     }
 }
