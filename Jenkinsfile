@@ -1,6 +1,13 @@
 pipeline {
     agent any
     stages {
+
+        stage('Start') {
+            steps {
+                 notifyBuild('STARTED')
+             }
+        }
+
         stage('build') {
          steps {
              checkout scm
