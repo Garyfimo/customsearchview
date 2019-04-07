@@ -13,4 +13,8 @@ class MainActivity : AppCompatActivity() {
     fun die() {
 
     }
+
+    fun live() {
+
+    }
 }
