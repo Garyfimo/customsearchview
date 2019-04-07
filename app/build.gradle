@@ -4,6 +4,12 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply from: "$project.rootDir/tools/findbugs.gradle"
+
+apply from: "$project.rootDir/tools/checkstyle.gradle"
+
+apply from: "$project.rootDir/tools/pmd.gradle"
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -13,6 +19,27 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    lintOptions {
+        quiet true
+        abortOnError false
+        ignoreWarnings true
+        checkAllWarnings true
+        warningsAsErrors false
+        noLines true
+        showAll true
+
+        disable "TypographyFractions", "TypographyQuotes"
+        disable "InvalidPackage"            //Some libraries have issues with this.
+        disable "OldTargetApi"
+        //Lint gives this warning but SDK 20 would be Android L Beta.
+        disable "IconDensities"             //For testing purpose. This is safe to remove.
+        disable "IconMissingDensityFolder"  //For testing purpose. This is safe to remove.
+
+        lintConfig file("${project.rootDir}/tools/rules-lint.xml")
+
+        xmlOutput file("$project.buildDir/reports/lint-app.xml")
+        htmlOutput file("$project.buildDir/reports/lint-app.html")
     }
     buildTypes {
         release {

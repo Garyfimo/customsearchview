@@ -13,6 +13,12 @@ pipeline {
              checkout scm
            }
         }
+
+        stage('sonar') {
+         steps {
+             ./gradlew clean sonarqube
+           }
+        }
     }
 }
 

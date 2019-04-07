@@ -1,4 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply plugin: "org.sonarqube"
 
 buildscript {
     ext.kotlin_version = '1.3.21'
@@ -10,6 +11,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.0-alpha09'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.7"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -20,6 +22,21 @@ allprojects {
         google()
         jcenter()
         
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "belcorp.biz.customsearchview"
+        property "sonar.projectName", "CustomSearchView"
+
+        property "sonar.modules", "app"
+
+        property "sonar.sources", "src/main"
+        property "sonar.sourceEncoding", "UTF-8"
+
+        property "sonar.exclusions", "bin/**,gen/**,androidTest/**"
+        property "sonar.android.lint.report", "reports/lint-app.xml"
     }
 }
 
